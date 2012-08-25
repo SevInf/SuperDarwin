@@ -27,7 +27,17 @@ require(['domReady', 'cocos2d', 'AppDelegate'], function(domReady, cc) {
         };
 
         loader.preload([
-            {type: 'image', src: 'resources/HelloWorld.png'}
+            {type: 'image', src: 'resources/beach_bg.png'},
+            {type: 'image', src: 'resources/beach_fg.png'},
+            {type: 'image', src: 'resources/jungle_bg.png'},
+            {type: 'image', src: 'resources/jungle_fg.png'},
+            {type: 'image', src: 'resources/sleepingSailor.png'},
+            {type: 'image', src: 'resources/tiles.png'},
+            {type: 'image', src: 'resources/tiles2.png'},
+            {type: 'image', src: 'resources/Darwin.png'},
+
+            {type: 'tmx', src: 'resources/level0.tmx'},
+            {type: 'tmx', src: 'resources/level1.tmx'}
         ]);
     });
 });

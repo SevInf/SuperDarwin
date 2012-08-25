@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="leftPortal" value="resources/level1.tmx"/>
+ </properties>
+ <tileset firstgid="1" name="beach_bg" tilewidth="20" tileheight="20">
+  <image source="beach_bg.png" width="640" height="360"/>
+ </tileset>
+ <tileset firstgid="577" name="sleepingSailor" tilewidth="20" tileheight="20">
+  <image source="sleepingSailor.png" width="140" height="120"/>
+ </tileset>
+ <tileset firstgid="619" name="tiles" tilewidth="20" tileheight="20">
+  <image source="tiles.png" width="40" height="20"/>
+ </tileset>
+ <tileset firstgid="621" name="beach_fg" tilewidth="20" tileheight="20">
+  <image source="beach_fg.png" width="160" height="300"/>
+ </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3VAxcQBgCF0Wzbtm3btm23vGzbtm1s2bbtlt3Sbr9jfefcn/DOCxDgd7/7/xaQQAQmCEEJRnBCEJJQhCYMYQlHeCIQkUhEJgpRiUZ0YhCTWMQmDnGJR3wSkJBEJCYJSUlGclKQklSkJg1pSUd6MpCRTGQmC1nJRnZykJNc5CYPeclHfgpQkEIUpghFKUZxSlCSUpSmDGUpR3kqUJFKVKYKValGdWpQk1rUpg51qUd9GtCQRjSmCU1pRnNa0JJWtKYNbWlHezrQkU505g+60JVudKcHPenFn/SmD33pR38GMJBBDGYIQxnGcEYwklGMZgxjGcd4JjCRSUxmClOZxnRmMJNZzGYOc5nHfBawkEUsZglLWcZyVrCSVaxmDWtZx3o2sJFNbGYLW9nGdnawk138xd/sZg972cd+DnCQQxzmCEc5xnFOcJJTnOYMZznHeS5wkUtc5gpXucZ1bnCTW9zmDne5x30e8JBHPOYJT3nGPzznBS95xWve8JZ3vOcDH/nEZ77wL1/5xnd+8JNf4w9IIAIThKAEIzghCEkoQhOGsIQjPBGISCQiE4WoRCM6MYhJLGITh7jEIz4JSEgiEpOEpCQjOSlISSpSk4a0pCM9GchIJjKThaxkIzs5yEkucpOHvOQjPwUoSCEKU4SiFKM4JShJKUpThrKUozwVqEglKlOFqlSjOjWoSS1qU4e61KM+DWhIIxrThKY0ozktaEkrWtOGtrSjPR3oSCc68wdd6Eo3utODnvTiT3rTh770oz8DGMggBjOEoQxjOCMYyShGM4axjGM8E5jIJCYzhalMYzozmMksZjOHucxjPgtYyCIWs4SlLGM5K1jJKlazhrWsYz0b2MgmNrOFrWxjOzvYyS7+4m92s4e97GM/BzjIIQ5zhKMc4zgnOMkpTnOGs5zjPBe4yCUuc4WrXOM6N7jJLW5zh7vc4z4PeMgjHvOEpzzjH57zgpe84jVveMs73vOBj3ziM1/4l6984zs/+Mmv4w9IIAIThKAEIzghCEkoQhOGsIQjPBGISCQiE4WoRCM6MYhJLGITh7jEIz4JSEgiEpOEpCQjOSlISSpSk4a0pCM9GchIJjKThaxkIzs5yEkucpOHvOQjPwX4D4PvtToADAAA
+  </data>
+ </layer>
+ <layer name="sleepingSalor" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3NtQ0DARAAwdd3ZmZmZuy/AE8V5+RWmniLIsuyLMuyLL5KWRRVatRp0KRVxvzbPh269OgzYBj0H/mMmTBlxpxF0H/ps2LNhi079kH/g8+RE2cuXLkF/e8+D568ePPhG/T/Zz+04JHHAAwAAA==
+  </data>
+ </layer>
+ <layer name="walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3PVw6CAAAE0ZVDIu3+iRSlqPQyt4CEneT970rOOeecc+5uhYH0RIQYCVJkwdnLpNdDylGgRIU3PqjRoEWHL374o8eAERNmLFixYYcu8O/sDjAefpwADAAA
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="24">
+  <object name="Spawn" x="166" y="365" width="30" height="46"/>
+ </objectgroup>
+ <layer name="foreground" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3NR0qdARhA0cfbrx07dmIs2LFjxyQqduzYsaOxoImKfSOeFTjzG/0XzvimUklJSd9VRjqVyiSLbHLIJS8d88/3KaCQIoopoTToX+ZTTgWVVFFNTdD/h08tP6mjngYag/5NPs200Eob7XQE/Tt9uuimh1766A/6D/gMMsQwI4wyFvQf9/nFb/4wwSRTQf9pnxlmmWOeBRaD/ks+y6ywyhrrbAT9N3222GaHXfbYD/of+BxyxDEnnHIW9D/3ueAvl1xxzU3Q/9bnjn/8554HHoP+Tz7PvPDKG+98BP2Tvu4TLjnfxgAMAAA=
+  </data>
+ </layer>
+</map>

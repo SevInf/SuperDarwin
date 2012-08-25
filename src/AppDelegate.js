@@ -1,4 +1,4 @@
-require(['cocos2d', 'scenes/HelloWorldScene'], function(cc, HelloWorldScene) {
+require(['cocos2d', 'scenes/GameScene'], function(cc, GameScene) {
     'use strict';
 
     cc.AppDelegate = cc.Application.extend({
@@ -16,7 +16,7 @@ require(['cocos2d', 'scenes/HelloWorldScene'], function(cc, HelloWorldScene) {
             director.setDisplayFPS(true);
             director.setAnimationInterval(1.0 / 60);
 
-            var scene = HelloWorldScene.node();
+            var scene = GameScene.scene();
             director.runWithScene(scene);
 
             return true;
