@@ -34,6 +34,8 @@ require(['domReady', 'cocos2d', 'AppDelegate'], function(domReady, cc) {
             {type: 'image', src: 'resources/sleepingSailor.png'},
             {type: 'image', src: 'resources/tiles.png'},
             {type: 'image', src: 'resources/tiles2.png'},
+
+            {type: 'plist', src: 'resources/Darwin.plist'},
             {type: 'image', src: 'resources/Darwin.png'},
 
             {type: 'tmx', src: 'resources/level0.tmx'},

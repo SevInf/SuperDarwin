@@ -2,14 +2,54 @@ define(['cocos2d'], function (cc) {
     'use strict';
     /** @const */ var GRAVITY = -160;
     /** @const */ var X_ACCELL = 1000;
+    /** @const */ var ANIMATION_TAG = 1;
 
     var Darwin = cc.Sprite.extend({
         ctor: function() {
-            this.initWithFile('resources/Darwin.png');
+            var frameCache = cc.SpriteFrameCache.sharedSpriteFrameCache();
+
+            this.walkAnimation = cc.Animation.create([
+                frameCache.spriteFrameByName('walk0.png'),
+                frameCache.spriteFrameByName('walk1.png'),
+                frameCache.spriteFrameByName('walk2.png'),
+                frameCache.spriteFrameByName('walk3.png'),
+                frameCache.spriteFrameByName('walk4.png'),
+                frameCache.spriteFrameByName('walk5.png'),
+                frameCache.spriteFrameByName('walk6.png'),
+                frameCache.spriteFrameByName('walk7.png')
+            ], 0.15);
+
+            this.idleAnimation = cc.Animation.create([
+                frameCache.spriteFrameByName('stay0.png'),
+                frameCache.spriteFrameByName('stay1.png')
+            ], 0.15);
+
+            this.jumpAnimation = cc.Animation.create([
+                frameCache.spriteFrameByName('jump0.png'),
+                frameCache.spriteFrameByName('jump1.png'),
+                frameCache.spriteFrameByName('jump2.png'),
+                frameCache.spriteFrameByName('jump3.png'),
+                frameCache.spriteFrameByName('jump4.png'),
+                frameCache.spriteFrameByName('jump5.png'),
+                frameCache.spriteFrameByName('jump6.png')
+            ], 0.2);
+
+
+            this.attackAnimation = cc.Animation.create([
+                frameCache.spriteFrameByName('attack0.png'),
+                frameCache.spriteFrameByName('attack1.png'),
+                frameCache.spriteFrameByName('attack2.png'),
+                frameCache.spriteFrameByName('attack3.png'),
+                frameCache.spriteFrameByName('attack4.png')
+            ], 0.1);
+
+            this.initWithSpriteFrame(frameCache.spriteFrameByName('stay0.png'));
             this.velocity = cc.ccp(0, 0);
             this.xAccel = 0;
             this.onGround = false;
+            this.attacking = false;
             this.setAnchorPoint(cc.ccp(0.5, 0));
+            this.playAnimation(this.idleAnimation);
         },
 
         moveAlongX: function(dt) {
@@ -33,22 +73,74 @@ define(['cocos2d'], function (cc) {
         },
 
         moveRight: function() {
+            if (this.attacking) {
+                return;
+            }
             this.xAccel = X_ACCELL;
+            this.setFlipX(false);
+            if (this.onGround) {
+                this.playAnimation(this.walkAnimation);
+            }
         },
 
         moveLeft: function() {
+            if (this.attacking) {
+                return;
+            }
             this.xAccel = -X_ACCELL;
+            this.setFlipX(true);
+            if (this.onGround) {
+                this.playAnimation(this.walkAnimation);
+            }
+        },
+
+        playAnimation: function(animation) {
+            if (!this.isAnimationPlaying(animation)) {
+                this.stopAnimation();
+                var action = cc.RepeatForever.create(cc.Animate.create(animation, false));
+                action.setTag(ANIMATION_TAG);
+                this.runAction(action);
+            }
+        },
+
+        isAnimationPlaying: function(animation) {
+            var action = this.getActionByTag(ANIMATION_TAG);
+            return action && action.getInnerAction().getAnimation() === animation;
+        },
+
+        stopAnimation: function() {
+            this.stopActionByTag(ANIMATION_TAG);
         },
 
         stop: function() {
             this.xAccel = 0;
+            if (this.onGround && !this.attacking) {
+                this.playAnimation(this.idleAnimation);
+            }
         },
 
         jump: function() {
             if (this.onGround) {
                 this.velocity.y = 180;
                 this.onGround = false;
+                this.stopAnimation();
+                if (!this.attacking) {
+                    this.runAction(cc.Animate.create(this.jumpAnimation, false));
+                }
             }
+        },
+
+        attack: function() {
+            if (this.attacking) {
+                return;
+            }
+            this.attacking = true;
+            this.runAction(cc.Sequence.create(
+                cc.Animate.create(this.attackAnimation),
+                cc.CallFunc.create(this, function() {
+                    this.attacking = false;
+                })
+            ));
         }
     });
 

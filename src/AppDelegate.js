@@ -12,6 +12,8 @@ require(['cocos2d', 'scenes/GameScene'], function(cc, GameScene) {
         },
 
         applicationDidFinishLaunching: function() {
+            cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/Darwin.plist');
+
             var director = cc.Director.sharedDirector();
             director.setDisplayFPS(true);
             director.setAnimationInterval(1.0 / 60);

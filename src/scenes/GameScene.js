@@ -39,8 +39,12 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
                 this.player.stop();
             }
 
-            if (this.keys[cc.KEY.up]) {
+            if (this.keys[cc.KEY.z] || this.keys[cc.KEY.w]) {
                 this.player.jump();
+            }
+
+            if (this.keys[cc.KEY.x]) {
+                this.player.attack();
             }
             this.player.update(dt);
             this.movePlayer(dt);
@@ -202,7 +206,7 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
 
         changeMapAndPlacePlayer: function(map, placeFn) {
             if (map) {
-                 this.player.removeFromParentAndCleanup(true);
+                 this.player.removeFromParentAndCleanup(false);
                  this.map.removeFromParentAndCleanup(true);
                  this.map = cc.TMXTiledMap.create(map);
                  this.walls = this.map.layerNamed('walls');
