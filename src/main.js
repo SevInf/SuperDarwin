@@ -37,12 +37,21 @@ require(['domReady', 'cocos2d', 'AppDelegate'], function(domReady, cc) {
             {type: 'image', src: 'resources/tiles_cave.png'},
             {type: 'image', src: 'resources/tiles_cave_bg.png'},
             {type: 'image', src: 'resources/cave_beach_bg.png'},
+            {type: 'image', src: 'resources/skull0.png'},
+            {type: 'image', src: 'resources/skull2.png'},
+            {type: 'image', src: 'resources/skull3.png'},
+            {type: 'image', src: 'resources/skull4.png'},
+            {type: 'image', src: 'resources/skull5.png'},
 
             {type: 'plist', src: 'resources/Darwin.plist'},
             {type: 'image', src: 'resources/Darwin.png'},
 
             {type: 'plist', src: 'resources/snake.plist'},
             {type: 'image', src: 'resources/snake.png'},
+            {type: 'plist', src: 'resources/bat.plist'},
+            {type: 'image', src: 'resources/bat.png'},
+            {type: 'plist', src: 'resources/spider.plist'},
+            {type: 'image', src: 'resources/spider.png'},
 
             {type: 'tmx', src: 'resources/level0.tmx'},
             {type: 'tmx', src: 'resources/level1.tmx'},

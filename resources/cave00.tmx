@@ -16,18 +16,22 @@
  </tileset>
  <layer name="beach_background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3NN1YCUABEUdarFAYMyA6UYEAU3IEBBTHvwJzjDsyKmYZb2/7Cwv/Ouc00k0jEYrFYLPb3ddBJ8tfeRTc99JKij34GGCTNEJmA/2FGyJIjT4FRxhhngiKTlJhimjIVZgL+Z5ljngWqLLJEjTrLNFhhlTXW2WCTrYD/bXbYZY99DjjkiGNOOOWMcy645IprbgL+b7njngceeeKZF15p8sY7H3zyxTc/tAL+Y7H/VBtVEYoCAAwAAA==
+   H4sIAAAAAAAAA+3NN1YCUABEUdarFAYMyA6UYEAU3IEBBTHvwJzjDsyKmYZb2/7Cwv/Ouc00k0jEYrFYLPb3ddBJ8tfeRTc99JKij34GGCTNEJmA/2FGyJIjT4FRxhhngiKTlJhimjIVZgL+Z5ljngWqLLJEjTrLNFhhlTXW2WCTrYD/bXbYZY99DjjkiGNOOOWMcy645IprbgL+b7njngceeeKZF15p8sY7H3zyxTc/tAL+Y7H/VBtVEYoCAAwAAA==
   </data>
  </layer>
  <layer name="cave_background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBSMglEwCgYeMAIxExAzU0CzUGA/KwV6YYCDAr2cVLCfZwjbzwvEfEDMTwKNzhagwP5RMApGEgAAxWzvCwAMAAA=
+   H4sIAAAAAAAAA2NgGAWjYBSMglEwCgYeMAIxExAzU0CzUGA/KwV6YYCDAr2cVLCfZwjbzwvEfEDMTwKNzhagwP5RMApGEgAAxWzvCwAMAAA=
   </data>
  </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC6QJ1KdKpXtRbZfBIjVoFh0AOwnBozaTzoQBGJJAliFhvYT67dR+zEBep6E2U8oPsmJW2IArdL/SLafmHKXlvaTAoay/aSEMy3spwYYtX/UfhAQphKWI9N+agFS60Za2I9cLhAqG2D2AwBXZ5EAAAwAAA==
+   H4sIAAAAAAAAA2NgoC6QJ1KdKpXtRbZfBIjVoFh0AOwnBozaTzoQBGJJAliFhvYT67dR+zEBep6E2U8oPsmJW2IArdL/SLafmHKXlvaTAoay/aSEMy3spwYYtX/UfhAQphKWI9N+agFS60Za2I9cLhAqG2D2AwBXZ5EAAAwAAA==
   </data>
  </layer>
- <objectgroup name="objects" width="32" height="24"/>
+ <objectgroup name="objects" width="32" height="24">
+  <object name="Bat1" type="Bat" x="274" y="122" width="47" height="172"/>
+  <object name="Bat2" type="Bat" x="393" y="406" width="202" height="43"/>
+  <object name="Snake1" type="Snake" x="5" y="378" width="370" height="42"/>
+ </objectgroup>
 </map>

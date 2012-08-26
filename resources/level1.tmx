@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="48" height="24" tilewidth="20" tileheight="20">
  <properties>
+  <property name="background" value="SKY"/>
   <property name="leftPortal" value="resources/level0.tmx"/>
   <property name="rightPortal" value="resources/cave00.tmx"/>
  </properties>

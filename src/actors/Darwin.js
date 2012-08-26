@@ -1,6 +1,6 @@
 define(['cocos2d'], function (cc) {
     'use strict';
-    /** @const */ var GRAVITY = -160;
+    /** @const */ var GRAVITY = -360;
     /** @const */ var X_ACCELL = 1000;
     /** @const */ var ANIMATION_TAG = 1;
     /** @const */ var HIT_DISTANCE = 58;
@@ -128,7 +128,7 @@ define(['cocos2d'], function (cc) {
 
         jump:function () {
             if (this.onGround) {
-                this.velocity.y = 220;
+                this.velocity.y = 330;
                 this.onGround = false;
                 this.stopAnimation();
                 if (!this.attacking) {

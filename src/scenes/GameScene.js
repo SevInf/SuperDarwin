@@ -1,22 +1,24 @@
-define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake) {
+define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function (cc, Darwin, enemies, Skull) {
     'use strict';
+
+    /** @const */ var COLORS = {
+        SKY:cc.ccc4(188, 231, 241, 255),
+        CAVE:cc.ccc4(0, 0, 0, 255),
+    }
 
     var GameScene = cc.Layer.extend({
         init:function () {
-            var background = cc.LayerColor.create(cc.ccc4(188, 231, 241, 255));
-            this.addChild(background);
-            this.map = cc.TMXTiledMap.create('resources/level0.tmx');
-            this.walls = this.map.layerNamed('walls');
-            this.addChild(this.map);
-
-            var objects = this.map.objectGroupNamed('objects');
-            var spawnPoint = objects.objectNamed('Spawn');
-
-            this.enemies = [];
+            this.background = cc.LayerColor.create(COLORS.SKY);
+            this.addChild(this.background);
             this.player = new Darwin();
-            this.player.setPosition(cc.ccp(spawnPoint.x + this.player.getContentSize().width / 2,
-                spawnPoint.y));
-            this.map.addChild(this.player, spawnPoint.z);
+            this.skulls = [];
+            this.changeMapAndPlacePlayer('resources/level0.tmx', function (map, player) {
+                var objects = map.objectGroupNamed('objects');
+                var spawnPoint = objects.objectNamed('Spawn');
+                player.setPosition(cc.ccp(spawnPoint.x + player.getContentSize().width / 2,
+                    spawnPoint.y));
+            });
+
             this.keys = {};
             this.setIsKeypadEnabled(true);
             this.scheduleUpdate();
@@ -52,6 +54,7 @@ define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake
             this.moveCamera();
             this.checkEnemiesHit();
             this.checkPlayerHit();
+            this.checkItemsCollisions();
             this.checkPortals();
         },
 
@@ -92,8 +95,8 @@ define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake
         collide:function (tileInfo, callback) {
             var self = this;
             tileInfo.tiles.forEach(function (tilePos) {
-                if (tilePos.x > 0 && tilePos.x < self.walls.getLayerSize().width &&
-                    tilePos.y > 0 && tilePos.y < self.walls.getLayerSize().height) {
+                if (tilePos.x >= 0 && tilePos.x < self.walls.getLayerSize().width &&
+                    tilePos.y >= 0 && tilePos.y < self.walls.getLayerSize().height) {
                     var tile = self.walls.tileGIDAt(tilePos);
                     if (tile) {
                         callback();
@@ -230,6 +233,15 @@ define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake
             });
         },
 
+        checkItemsCollisions:function () {
+            var self = this;
+            this.items.forEach(function (item) {
+                if (cc.Rect.CCRectIntersectsRect(self.player.collisionBox(), item.collisionBox())) {
+                    item.collect(self);
+                }
+            });
+        },
+
         checkPortals:function () {
             var nextMap;
             if (this.player.getPosition().x > this.mapWidth()) {
@@ -262,19 +274,38 @@ define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake
 
         changeMapAndPlacePlayer:function (map, placeFn) {
             if (map) {
-                this.player.removeFromParentAndCleanup(false);
-                this.map.removeFromParentAndCleanup(true);
+                if (this.player.getParent()) {
+                    this.player.removeFromParentAndCleanup(false);
+                }
+                if (this.map) {
+                    this.map.removeFromParentAndCleanup(true);
+                }
+
                 this.map = cc.TMXTiledMap.create(map);
 
+                var background = COLORS[this.map.propertyNamed('background')];
+                if (!background) {
+                    background = COLORS.CAVE;
+                }
+
+                this.background.setColor(background);
+
                 this.enemies = [];
+                this.items = [];
                 var objects = this.map.objectGroupNamed('objects');
                 var self = this;
                 objects.getObjects().forEach(function (objectData) {
                     console.log(objectData);
                     var object;
-                    if (objectData.type === 'Snake') {
-                        object = Snake.create(objectData);
+                    var EnemyClass = enemies[objectData.type];
+                    if (typeof EnemyClass !== 'undefined') {
+                        object = EnemyClass.create(objectData);
                         self.enemies.push(object);
+                    } else {
+                        if (objectData.name.indexOf('skull') === 0 && self.skulls.indexOf(objectData.name) === -1) {
+                            object = Skull.create(objectData);
+                            self.items.push(object);
+                        }
                     }
                     if (object) {
                         self.map.addChild(object, objectData.z);
@@ -285,7 +316,7 @@ define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake
                 this.addChild(this.map);
 
                 placeFn(this.map, this.player);
-                this.map.addChild(this.player);
+                this.map.addChild(this.player, 1);
             }
 
         }

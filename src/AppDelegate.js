@@ -14,6 +14,8 @@ require(['cocos2d', 'scenes/GameScene'], function(cc, GameScene) {
         applicationDidFinishLaunching: function() {
             cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/Darwin.plist');
             cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/snake.plist');
+            cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/bat.plist');
+            cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/spider.plist');
 
             var director = cc.Director.sharedDirector();
             director.setDisplayFPS(true);
