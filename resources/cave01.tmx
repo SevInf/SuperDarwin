@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="leftPortal" value="resources/cave02.tmx"/>
+  <property name="rightPortal" value="resources/cave03.tmx"/>
+  <property name="topPortal" value="resources/cave00.tmx"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
+  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="120" height="80"/>
+ </tileset>
+ <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
+  <image source="cave_beach_bg.png" width="640" height="200"/>
+ </tileset>
+ <layer name="walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoA6QJ1G9KpXsHS72CwKxJAVYhUL7SXU/pYCe9osAsRoSFqWz/djAqP2j9o/aj1p+oedT9DyLC+DTh8ssZai9o2AUDDUAS+/48sQoIA4IDzAeaAAAsqwgEQAMAAA=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="24">
+  <object name="redWall" x="520" y="280" width="80" height="160"/>
+ </objectgroup>
+</map>

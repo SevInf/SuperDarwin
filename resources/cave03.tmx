@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="bottomPortal" value="resources/cave04.tmx"/>
+  <property name="leftPortal" value="resources/cave01.tmx"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
+  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="120" height="80"/>
+ </tileset>
+ <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
+  <image source="cave_beach_bg.png" width="640" height="200"/>
+ </tileset>
+ <layer name="walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgGAWjABMIArEkBViIQvvlKdSvOmr/qP2j9g96+3GVHyoE9IkAsRoOLEqC/bQCo/aP2j9q/+C3X5hELMeAWvaIUmg/qYDYcplY+wGZPKLrAAwAAA==
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="24"/>
+</map>

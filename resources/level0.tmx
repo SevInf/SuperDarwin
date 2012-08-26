@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="20" tileheight="20">
  <properties>
-  <property name="leftPortal" value="resources/level1.tmx"/>
+  <property name="rightPortal" value="resources/level1.tmx"/>
  </properties>
  <tileset firstgid="1" name="beach_bg" tilewidth="20" tileheight="20">
   <image source="beach_bg.png" width="640" height="360"/>
@@ -11,12 +11,12 @@
  </tileset>
  <layer name="background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3PRWwVYRQG0HnF3dvi7i1W966xBU7QNe5ua9zd1rgGgm9xd3d3dw5JVyQkb9HlfMnJPzP55t6ZIAgTJkyYMGHCFEZiI0EQR3ykcOcmmJf4n5lJnieTQipppJNBJllkk0MueeRH+X3t9TrQkU50/ue9Lu670o3u9KAnvehd0O3j7Es/+jOAgVHuH6Q3mCEMZRjDGcFIRjGaMYxlHOOZwEQmMZkpTGUa05kR5f6ZerOYzRzmMo/5LGAhi1jMEpayjOWsYCWrWM0a1rKO9VHu36C3kU1sZgtb2cZ2drCTXewumLnHubfgep9zPwc4yCEOcySK/Ud1jnGcE5zkFKc5w1nOcZ4LXOQSl7nCVa5xnRvc5Ba3ucNd7nGfBzzkEY95wlOe8ZwXvOQVr3nDW97xng985BOf+cJXvvGdH/zkF7///ntMEESIoQhFKUZxSlCSUpSmDGUpR3kqUJFKVKYKValGLHHEU50a1KQWtalDXepRnwY0pBGNaUJTmtGcFrQkgURa0Zo2tKUdSSSTQipppJNBJllkk0MueeTzB4dcE98ADAAA
+   H4sIAAAAAAAAC+3PRWwVYRQG0HnF3dvi7i1W966xBU7QNe5ua9zd1rgGgm9xd3d3dw5JVyQkb9HlfMnJPzP55t6ZIAgTJkyYMGHCFEZiI0EQR3ykcOcmmJf4n5lJnieTQipppJNBJllkk0MueeRH+X3t9TrQkU50/ue9Lu670o3u9KAnvehd0O3j7Es/+jOAgVHuH6Q3mCEMZRjDGcFIRjGaMYxlHOOZwEQmMZkpTGUa05kR5f6ZerOYzRzmMo/5LGAhi1jMEpayjOWsYCWrWM0a1rKO9VHu36C3kU1sZgtb2cZ2drCTXewumLnHubfgep9zPwc4yCEOcySK/Ud1jnGcE5zkFKc5w1nOcZ4LXOQSl7nCVa5xnRvc5Ba3ucNd7nGfBzzkEY95wlOe8ZwXvOQVr3nDW97xng985BOf+cJXvvGdH/zkF7///ntMEESIoQhFKUZxSlCSUpSmDGUpR3kqUJFKVKYKValGLHHEU50a1KQWtalDXepRnwY0pBGNaUJTmtGcFrQkgURa0Zo2tKUdSSSTQipppJNBJllkk0MueeTzB4dcE98ADAAA
   </data>
  </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3Otw2AQBQE0Q8htAL914Tn8B6mhAtAItiRXrbBmimllFJKKfWfssAsR4ESFWo0aOHQoceAERNmLFixYceBExduWOj3IWIXe26/LOFD+vKPB/ta7xsADAAA
+   H4sIAAAAAAAAC+3Otw2AQBQE0Q8htAL914Tn8B6mhAtAItiRXrbBmimllFJKKfWfssAsR4ESFWo0aOHQoceAERNmLFixYceBExduWOj3IWIXe26/LOFD+vKPB/ta7xsADAAA
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="24">
@@ -24,7 +24,7 @@
  </objectgroup>
  <layer name="foreground" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3TxUqFARSF0ct9OcXu7u7uxsbGBBNMMMF8PZcP4PSM/g1r/I12KpUsWbLoZaRTqcx0TCtLJ5sccskjn4KAfqFGEcWUUEoZ5VQE9Cs1qqimhlrqqKchoN+o0UQzLbTSRjsdAf1OjS666aGXPvoZCOgPagwxzAijjDHOREB/UmOKaWaYZY55FoL+t6izxDIrrLLGelB/Q2eTLbbZYZe9oP6+zgGHHHHMSVD7b6daZ5xzwSVXgf1rrRtuueOeh8D+o9YTz7zwyltg/13rg0+++OYnsJ/s//0CJVGG9AAMAAA=
+   H4sIAAAAAAAAC+3TxUqFARSF0ct9OcXu7u7uxsbGBBNMMMF8PZcP4PSM/g1r/I12KpUsWbLoZaRTqcx0TCtLJ5sccskjn4KAfqFGEcWUUEoZ5VQE9Cs1qqimhlrqqKchoN+o0UQzLbTSRjsdAf1OjS666aGXPvoZCOgPagwxzAijjDHOREB/UmOKaWaYZY55FoL+t6izxDIrrLLGelB/Q2eTLbbZYZe9oP6+zgGHHHHMSVD7b6daZ5xzwSVXgf1rrRtuueOeh8D+o9YTz7zwyltg/13rg0+++OYnsJ/s//0CJVGG9AAMAAA=
   </data>
  </layer>
 </map>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="32" height="24" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="bottomPortal" value="resources/cave17.tmx"/>
+  <property name="topPortal" value="resources/cave14.tmx"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
+  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="120" height="80"/>
+ </tileset>
+ <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
+  <image source="cave_beach_bg.png" width="640" height="200"/>
+ </tileset>
+ <layer name="walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgoC6QJ1KdKpXtHbV/1H5C9osAsRoQiw6Q/chg1H5UIAjEkiRiISraT6w+fGYMFvuR0/lA2E+OXnLsV2bATBMqdLSfEjBqP/3tx1f+jwT/j9qP235xIBamApYj035qAVLLfwBxe1yBAAwAAA==
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="24">
+  <object name="grayWall" x="320" y="280" width="80" height="160"/>
+  <object name="diamondCane" x="60" y="360" width="80" height="80"/>
+ </objectgroup>
+</map>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="44" height="24" tilewidth="20" tileheight="20">
+ <properties>
+  <property name="leftPortal" value="resources/cave07.tmx"/>
+ </properties>
+ <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
+  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ </tileset>
+ <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="120" height="80"/>
+ </tileset>
+ <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
+  <image source="cave_beach_bg.png" width="640" height="200"/>
+ </tileset>
+ <layer name="walls" width="44" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3WOwqAMBCE4bmCLzSNNur9j2gCVkGQDQy7gflhuhRfmpAEIHWyEX11eQOMyctNXm7yciveyXF7g9ezw3g+mnfOu98tH+ejef8q3gF+/5ezwWu9o2fycovurd+L6N46ebnJy614V/j+0Szb8h5s7e+9gBAAAA==
+  </data>
+ </layer>
+ <objectgroup name="objects" width="44" height="24">
+  <object name="ironCane" x="26" y="372" width="80" height="80"/>
+ </objectgroup>
+</map>

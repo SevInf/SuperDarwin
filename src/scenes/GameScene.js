@@ -1,4 +1,4 @@
-define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
+define(['cocos2d', 'actors/Darwin', 'actors/Snake'], function (cc, Darwin, Snake) {
     'use strict';
 
     var GameScene = cc.Layer.extend({
@@ -12,6 +12,7 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
             var objects = this.map.objectGroupNamed('objects');
             var spawnPoint = objects.objectNamed('Spawn');
 
+            this.enemies = [];
             this.player = new Darwin();
             this.player.setPosition(cc.ccp(spawnPoint.x + this.player.getContentSize().width / 2,
                 spawnPoint.y));
@@ -49,6 +50,8 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
             this.player.update(dt);
             this.movePlayer(dt);
             this.moveCamera();
+            this.checkEnemiesHit();
+            this.checkPlayerHit();
             this.checkPortals();
         },
 
@@ -89,17 +92,25 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
         collide:function (tileInfo, callback) {
             var self = this;
             tileInfo.tiles.forEach(function (tilePos) {
-                var tile = self.walls.tileGIDAt(tilePos);
-                if (tile !== 0) {
-                    callback();
+                if (tilePos.x > 0 && tilePos.x < self.walls.getLayerSize().width &&
+                    tilePos.y > 0 && tilePos.y < self.walls.getLayerSize().height) {
+                    var tile = self.walls.tileGIDAt(tilePos);
+                    if (tile) {
+                        callback();
+                    }
                 }
+
             });
         },
 
 
         getBottomTiles:function (rect) {
             var minX = Math.floor(cc.Rect.CCRectGetMinX(rect) / this.map.getTileSize().width);
-            var maxX = Math.floor(cc.Rect.CCRectGetMaxX(rect) / this.map.getTileSize().width);
+            var maxXf = cc.Rect.CCRectGetMaxX(rect) / this.map.getTileSize().width;
+            var maxX = Math.floor(maxXf);
+            if (maxX === maxXf) {
+                maxX--;
+            }
             var y = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMinY(rect)) / this.map.getTileSize().height);
             var tilesInfo = {
                 baseline:this.mapHeight() - y * this.map.getTileSize().height,
@@ -115,7 +126,11 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
 
         getTopTiles:function (rect) {
             var minX = Math.floor(cc.Rect.CCRectGetMinX(rect) / this.map.getTileSize().width);
-            var maxX = Math.floor(cc.Rect.CCRectGetMaxX(rect) / this.map.getTileSize().width);
+            var maxXf = cc.Rect.CCRectGetMaxX(rect) / this.map.getTileSize().width;
+            var maxX = Math.floor(maxXf);
+            if (maxX === maxXf) {
+                maxX--;
+            }
             var y = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMaxY(rect)) / this.map.getTileSize().height);
             var tilesInfo = {
                 baseline:this.mapHeight() - (y + 1) * this.map.getTileSize().height,
@@ -131,7 +146,11 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
         },
 
         getLeftTiles:function (rect) {
-            var maxY = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMinY(rect)) / this.map.getTileSize().height) - 1;
+            var maxYf = (this.mapHeight() - cc.Rect.CCRectGetMinY(rect)) / this.map.getTileSize().height;
+            var maxY = Math.floor(maxYf);
+            if (maxY === maxYf) {
+                maxY--;
+            }
             var minY = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMaxY(rect)) / this.map.getTileSize().height);
             var x = Math.floor(cc.Rect.CCRectGetMinX(rect) / this.map.getTileSize().width);
             var tilesInfo = {
@@ -147,7 +166,11 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
         },
 
         getRightTiles:function (rect) {
-            var maxY = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMinY(rect)) / this.map.getTileSize().height) - 1;
+            var maxYf = (this.mapHeight() - cc.Rect.CCRectGetMinY(rect)) / this.map.getTileSize().height;
+            var maxY = Math.floor(maxYf);
+            if (maxY === maxYf) {
+                maxY--;
+            }
             var minY = Math.floor((this.mapHeight() - cc.Rect.CCRectGetMaxY(rect)) / this.map.getTileSize().height);
             var x = Math.floor(cc.Rect.CCRectGetMaxX(rect) / this.map.getTileSize().width);
             var tilesInfo = {
@@ -166,16 +189,16 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
             return this.map.getMapSize().height * this.map.getTileSize().height;
         },
 
-        mapWidth: function() {
+        mapWidth:function () {
             return this.map.getMapSize().width * this.map.getTileSize().width;
         },
 
-        moveCamera: function() {
+        moveCamera:function () {
             var winSize = cc.Director.sharedDirector().getWinSize();
             var playerPos = this.player.getPosition();
 
             var x = Math.max(winSize.width / 2, playerPos.x);
-            var y = Math.max(winSize.height /2, playerPos.y);
+            var y = Math.max(winSize.height / 2, playerPos.y);
             x = Math.min(x, this.mapWidth() - winSize.width / 2);
             y = Math.min(y, this.mapHeight() - winSize.height / 2);
 
@@ -184,36 +207,85 @@ define(['cocos2d', 'actors/Darwin'], function (cc, Darwin) {
             this.map.setPosition(viewPoint);
         },
 
-        checkPortals: function() {
-            var nextMap;
-            if (this.player.getPosition().x > this.mapWidth()) {
-                nextMap = this.map.propertyNamed('leftPortal');
-                this.changeMapAndPlacePlayer(nextMap, function(map, player) {
-                    player.setPosition(cc.ccp(player.collisionBox().size.width * 0.5,
-                                              player.getPosition().y));
-                });
-            }
-
-            if (this.player.getPosition().x < 0) {
-                nextMap = this.map.propertyNamed('rightPortal');
-                this.changeMapAndPlacePlayer(nextMap, function(map, player) {
-                    var mapWidth = map.getMapSize().width * map.getTileSize().width;
-                    player.setPosition(cc.ccp(mapWidth - player.collisionBox().size.width * 0.5,
-                                              player.getPosition().y));
+        checkEnemiesHit:function () {
+            if (this.player.attacking) {
+                var self = this;
+                this.enemies.forEach(function (enemy) {
+                    self.player.hitIfPossible(enemy);
                 });
             }
         },
 
-        changeMapAndPlacePlayer: function(map, placeFn) {
-            if (map) {
-                 this.player.removeFromParentAndCleanup(false);
-                 this.map.removeFromParentAndCleanup(true);
-                 this.map = cc.TMXTiledMap.create(map);
-                 this.walls = this.map.layerNamed('walls');
-                 this.addChild(this.map);
+        checkPlayerHit:function () {
+            if (this.player.regenerating) {
+                return;
+            }
+            var self = this;
+            this.enemies.forEach(function (enemy) {
+                if (!enemy.dead) {
+                    if (cc.Rect.CCRectIntersectsRect(self.player.collisionBox(), enemy.collisionBox())) {
+                        self.player.hit();
+                    }
+                }
+            });
+        },
 
-                 placeFn(this.map, this.player);
-                 this.map.addChild(this.player);
+        checkPortals:function () {
+            var nextMap;
+            if (this.player.getPosition().x > this.mapWidth()) {
+                nextMap = this.map.propertyNamed('rightPortal');
+                this.changeMapAndPlacePlayer(nextMap, function (map, player) {
+                    player.setPosition(cc.ccp(player.collisionBox().size.width * 0.5 + 10,
+                        player.getPosition().y));
+                });
+            } else if (this.player.getPosition().x < 0) {
+                nextMap = this.map.propertyNamed('leftPortal');
+                this.changeMapAndPlacePlayer(nextMap, function (map, player) {
+                    var mapWidth = map.getMapSize().width * map.getTileSize().width;
+                    player.setPosition(cc.ccp(mapWidth - player.collisionBox().size.width * 0.5 - 10,
+                        player.getPosition().y + 0.1));
+                });
+            } else if (this.player.getPosition().y < 0) {
+                nextMap = this.map.propertyNamed('bottomPortal');
+                this.changeMapAndPlacePlayer(nextMap, function (map, player) {
+                    var mapHeight = map.getMapSize().height * map.getTileSize().height;
+                    player.setPosition(cc.ccp(player.getPosition().x,
+                        mapHeight - 10));
+                });
+            } else if (this.player.getPosition().y > this.mapHeight()) {
+                nextMap = this.map.propertyNamed('topPortal');
+                this.changeMapAndPlacePlayer(nextMap, function (map, player) {
+                    player.setPosition(cc.ccp(player.getPosition().x, 10));
+                });
+            }
+        },
+
+        changeMapAndPlacePlayer:function (map, placeFn) {
+            if (map) {
+                this.player.removeFromParentAndCleanup(false);
+                this.map.removeFromParentAndCleanup(true);
+                this.map = cc.TMXTiledMap.create(map);
+
+                this.enemies = [];
+                var objects = this.map.objectGroupNamed('objects');
+                var self = this;
+                objects.getObjects().forEach(function (objectData) {
+                    console.log(objectData);
+                    var object;
+                    if (objectData.type === 'Snake') {
+                        object = Snake.create(objectData);
+                        self.enemies.push(object);
+                    }
+                    if (object) {
+                        self.map.addChild(object, objectData.z);
+                    }
+                });
+
+                this.walls = this.map.layerNamed('walls');
+                this.addChild(this.map);
+
+                placeFn(this.map, this.player);
+                this.map.addChild(this.player);
             }
 
         }

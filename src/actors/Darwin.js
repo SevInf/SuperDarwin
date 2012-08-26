@@ -3,9 +3,11 @@ define(['cocos2d'], function (cc) {
     /** @const */ var GRAVITY = -160;
     /** @const */ var X_ACCELL = 1000;
     /** @const */ var ANIMATION_TAG = 1;
+    /** @const */ var HIT_DISTANCE = 58;
+    /** @const */ var HIT_DISTANCE_SQR = HIT_DISTANCE * HIT_DISTANCE;
 
     var Darwin = cc.Sprite.extend({
-        ctor: function() {
+        ctor:function () {
             var frameCache = cc.SpriteFrameCache.sharedSpriteFrameCache();
 
             this.walkAnimation = cc.Animation.create([
@@ -43,39 +45,43 @@ define(['cocos2d'], function (cc) {
                 frameCache.spriteFrameByName('attack4.png')
             ], 0.1);
 
+            this.facingRight = true;
             this.initWithSpriteFrame(frameCache.spriteFrameByName('stay0.png'));
             this.velocity = cc.ccp(0, 0);
             this.xAccel = 0;
             this.onGround = false;
             this.attacking = false;
+            this.lives = 3;
+            this.regenerating = false;
             this.setAnchorPoint(cc.ccp(0.5, 0));
             this.playAnimation(this.idleAnimation);
         },
 
-        moveAlongX: function(dt) {
+        moveAlongX:function (dt) {
             var velocityStep = this.xAccel * dt;
             this.velocity.x = (this.velocity.x + velocityStep) * 0.9;
             var positionStep = this.velocity.x * dt;
             this.setPosition(cc.ccp(this.getPosition().x + positionStep, this.getPosition().y));
         },
 
-        moveAlongY: function(dt) {
+        moveAlongY:function (dt) {
             var velocityStep = GRAVITY * dt;
             this.velocity.y += velocityStep;
             var positionStep = this.velocity.y * dt;
             this.setPosition(cc.ccp(this.getPosition().x, this.getPosition().y + positionStep));
         },
 
-        collisionBox: function() {
+        collisionBox:function () {
             var pos = this.getPosition();
             var size = this.getContentSize();
             return cc.RectMake(pos.x - 15, pos.y, 30, size.height);
         },
 
-        moveRight: function() {
+        moveRight:function () {
             if (this.attacking) {
                 return;
             }
+            this.facingRight = true;
             this.xAccel = X_ACCELL;
             this.setFlipX(false);
             if (this.onGround) {
@@ -83,10 +89,11 @@ define(['cocos2d'], function (cc) {
             }
         },
 
-        moveLeft: function() {
+        moveLeft:function () {
             if (this.attacking) {
                 return;
             }
+            this.facingRight = false;
             this.xAccel = -X_ACCELL;
             this.setFlipX(true);
             if (this.onGround) {
@@ -94,7 +101,7 @@ define(['cocos2d'], function (cc) {
             }
         },
 
-        playAnimation: function(animation) {
+        playAnimation:function (animation) {
             if (!this.isAnimationPlaying(animation)) {
                 this.stopAnimation();
                 var action = cc.RepeatForever.create(cc.Animate.create(animation, false));
@@ -103,25 +110,25 @@ define(['cocos2d'], function (cc) {
             }
         },
 
-        isAnimationPlaying: function(animation) {
+        isAnimationPlaying:function (animation) {
             var action = this.getActionByTag(ANIMATION_TAG);
             return action && action.getInnerAction().getAnimation() === animation;
         },
 
-        stopAnimation: function() {
+        stopAnimation:function () {
             this.stopActionByTag(ANIMATION_TAG);
         },
 
-        stop: function() {
+        stop:function () {
             this.xAccel = 0;
             if (this.onGround && !this.attacking) {
                 this.playAnimation(this.idleAnimation);
             }
         },
 
-        jump: function() {
+        jump:function () {
             if (this.onGround) {
-                this.velocity.y = 180;
+                this.velocity.y = 220;
                 this.onGround = false;
                 this.stopAnimation();
                 if (!this.attacking) {
@@ -130,21 +137,71 @@ define(['cocos2d'], function (cc) {
             }
         },
 
-        attack: function() {
+        attack:function () {
             if (this.attacking) {
                 return;
             }
             this.attacking = true;
             this.runAction(cc.Sequence.create(
                 cc.Animate.create(this.attackAnimation),
-                cc.CallFunc.create(this, function() {
+                cc.CallFunc.create(this, function () {
                     this.attacking = false;
+                })
+            ));
+        },
+
+        hitIfPossible:function (object) {
+            if (this.isHitPossible(object)) {
+                object.hit();
+            }
+        },
+
+        isHitPossible: function(object) {
+            if (!this.yAligned(object)) {
+                return false;
+            }
+            if (this.facingRight && this.getPosition().x < object.getPosition().x) {
+                return this.distanceRightSqr(object) < HIT_DISTANCE_SQR;
+            } else if (!this.facingRight && this.getPosition().x > object.getPosition().x) {
+                return this.distanceLeftSqr(object) < HIT_DISTANCE_SQR;
+            }
+        },
+
+        yAligned: function(object) {
+            var myCB = this.collisionBox();
+            var otherCB = object.collisionBox();
+            var myMin = cc.Rect.CCRectGetMinY(myCB),
+                myMax = cc.Rect.CCRectGetMaxY(myCB),
+                otherMin = cc.Rect.CCRectGetMinY(otherCB),
+                otherMax = cc.Rect.CCRectGetMaxY(otherCB);
+
+            return (otherMin > myMin && otherMin < myMax) ||
+                (otherMax > myMin && otherMax < myMax);
+        },
+
+        distanceLeftSqr:function (object) {
+            var dx = this.getPosition().x - cc.Rect.CCRectGetMinX(object.collisionBox());
+            return dx * dx;
+        },
+
+        distanceRightSqr:function (object) {
+            var dx = this.getPosition().x - cc.Rect.CCRectGetMaxX(object.collisionBox());
+            return dx * dx;
+        },
+
+        hit: function() {
+            this.regenerating = true;
+            this.lives--;
+            this.runAction(cc.Sequence.create(
+                cc.Blink.create(2, 20),
+                cc.CallFunc.create(this, function() {
+                    this.regenerating = false;
                 })
             ));
         }
     });
 
-    Darwin.create = function() {
+    Darwin.create = function () {
         return new Darwin();
     };
 
