@@ -5,33 +5,25 @@
   <property name="leftPortal" value="resources/level1.tmx"/>
   <property name="topPortal" value="resources/cave05.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
- <layer name="beach_background" width="32" height="24">
+ <layer name="background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA+3NN1YCUABEUdarFAYMyA6UYEAU3IEBBTHvwJzjDsyKmYZb2/7Cwv/Ouc00k0jEYrFYLPb3ddBJ8tfeRTc99JKij34GGCTNEJmA/2FGyJIjT4FRxhhngiKTlJhimjIVZgL+Z5ljngWqLLJEjTrLNFhhlTXW2WCTrYD/bXbYZY99DjjkiGNOOOWMcy645IprbgL+b7njngceeeKZF15p8sY7H3zyxTc/tAL+Y7H/VBtVEYoCAAwAAA==
-  </data>
- </layer>
- <layer name="cave_background" width="32" height="24">
-  <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgGAWjYBSMglEwCgYeMAIxExAzU0CzUGA/KwV6YYCDAr2cVLCfZwjbzwvEfEDMTwKNzhagwP5RMApGEgAAxWzvCwAMAAA=
+   H4sIAAAAAAAAA2NgoD5wIQLTEozaP7D2OwGx8wDaHwbE4TSyPwuIs3GYmQHEmQTUUGp/HRDX4zCzBohrCahxAGJHCuwnJm3RMv1Rai8sjqjtH2IxLI4Gyn708B+1f/DZvw+I9wPxASA+OAD2XwLiy0B8BYivDoD9z4D4ORC/AOKXA2D/QMf/YLGfj5GBgR+IBRhpZz81wUDbT0y7Z7D5HwBKVmo6AAwAAA==
   </data>
  </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAA2NgoC6QJ1KdKpXtRbZfBIjVoFh0AOwnBozaTzoQBGJJAliFhvYT67dR+zEBep6E2U8oPsmJW2IArdL/SLafmHKXlvaTAoay/aSEMy3spwYYtX/UfhAQphKWI9N+agFS60Za2I9cLhAqG2D2AwBXZ5EAAAwAAA==
+   H4sIAAAAAAAAA2NgoC4QJFKdBJXtRbafBYgloZh1AOwnBozaTzpgBGIuAlichvYT67dR+zEBep6E2U8oPsmJW2IArdL/SLafmHKXlvaTAoay/aSEMy3spwYYtX/UfhBgphIWINN+agFS60Za2I9cLhAqG2D2AwAZsjo0AAwAAA==
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="24">
-  <object name="Bat1" type="Bat" x="274" y="122" width="47" height="172"/>
-  <object name="Bat2" type="Bat" x="393" y="406" width="202" height="43"/>
-  <object name="Snake1" type="Snake" x="5" y="378" width="370" height="42"/>
+  <object name="Spider1" type="Spider" x="140" y="360" width="220" height="60"/>
+  <object name="Bat1" type="Bat" x="543" y="15" width="29" height="140"/>
+  <object name="Bat1" type="Bat" x="300" y="380" width="240" height="40"/>
  </objectgroup>
 </map>

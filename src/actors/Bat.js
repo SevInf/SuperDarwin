@@ -59,6 +59,10 @@ define(['cocos2d', 'actors/Enemy'], function (cc, Enemy) {
 
             this.runAction(cc.RepeatForever.create(run));
 
+        },
+
+        collisionBox: function() {
+            return cc.RectMake(this.getPosition().x - 14, this.getPosition().y, 28, 20);
         }
     });
 

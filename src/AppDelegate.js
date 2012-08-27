@@ -1,4 +1,4 @@
-require(['cocos2d', 'scenes/GameScene'], function(cc, GameScene) {
+require(['cocos2d', 'scenes/IdleScene'], function(cc, IdleScene) {
     'use strict';
 
     cc.AppDelegate = cc.Application.extend({
@@ -21,7 +21,7 @@ require(['cocos2d', 'scenes/GameScene'], function(cc, GameScene) {
             director.setDisplayFPS(true);
             director.setAnimationInterval(1.0 / 60);
 
-            var scene = GameScene.scene();
+            var scene = IdleScene.create('Click to start', 'resources/title.png');
             director.runWithScene(scene);
 
             return true;

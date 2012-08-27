@@ -3,21 +3,34 @@
  <properties>
   <property name="leftPortal" value="resources/cave07.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
+ <layer name="background" width="44" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3Wx0oDQRjA8cktanwD6xsYo/eIPoLiQwiWe2KLvoG9l4sttlhuxkRjvdkT283yFv4vA3FZIQvZdT/YD36XhRn+DMswSsmaFhfrxwAGERPQO4JRjGFcQO8KVrGGdQG9Rl6v1yu997/H67V3mpWs3nYlq7dDWe/tRBe60WNhfQRR9KLPgXV69PtnCMMW1jsljKa8Xv3+mcAkpjCNGcxiDvNYwCKWsGyy7xGSOEaqiL2taMvr1e+fDcSxiS1sYwe7SGAP+zjAocm+N7jFHe5tOGc9xu9pnOAUGZzhHBe4xBWuTdZ94BNf+C5ip/7f/+p9wCOekEUOz3jBK97wbsP5FXq+fp9SJShFGQIo9znfU2hvBW2VqEI1alDrot6w+n0/1NEWRD1CaECji3qN94Ok+QElPYbbgBAAAA==
+  </data>
+ </layer>
  <layer name="walls" width="44" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+3WOwqAMBCE4bmCLzSNNur9j2gCVkGQDQy7gflhuhRfmpAEIHWyEX11eQOMyctNXm7yciveyXF7g9ezw3g+mnfOu98tH+ejef8q3gF+/5ezwWu9o2fycovurd+L6N46ebnJy614V/j+0Szb8h5s7e+9gBAAAA==
+   H4sIAAAAAAAAC+3WuwqAMBBE0fEFmkor9f9/1ASsgiAbGHYDc2G6FCdNSAKQOtmIvrq8Acbk5SYvN3m5Fe/kuL3B69lhPB/NO+fd75aP89G8fxXvAL//y9ngtd7RM3m5RffW70V0b5283OTlVrwrfP9olm15D3yZ9H2AEAAA
   </data>
  </layer>
  <objectgroup name="objects" width="44" height="24">
   <object name="ironCane" x="26" y="372" width="80" height="80"/>
+  <object type="Spider" x="21" y="337" width="366" height="120"/>
+  <object type="Spider" x="154" y="297" width="373" height="161"/>
+  <object type="Spider" x="389" y="298" width="470" height="162"/>
+  <object type="Spider" x="227" y="285" width="475" height="175"/>
+  <object type="Bat" x="192" y="58" width="663" height="19"/>
+  <object type="Bat" x="339" y="117" width="503" height="38"/>
+  <object type="Snake" x="222" y="137" width="408" height="40"/>
+  <object type="Spider" x="51" y="284" width="407" height="176"/>
+  <object type="Spider" x="19" y="279" width="773" height="180"/>
+  <object type="Spider" x="643" y="27" width="215" height="423"/>
+  <object type="Spider" x="11" y="156" width="627" height="304"/>
  </objectgroup>
 </map>

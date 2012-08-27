@@ -7,4 +7,8 @@ body {
     background: black;
 }
 
+canvas {
+    outline: none;
+}
+
 

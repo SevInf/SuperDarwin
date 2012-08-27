@@ -1,13 +1,21 @@
-define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function (cc, Darwin, enemies, Skull) {
+define(['cocos2d',
+    'require',
+    'actors/Darwin',
+    'actors/enemies',
+    'actors/Skull',
+    'layers/GUILayer'], function (cc, require, Darwin, enemies, Skull, GUILayer) {
     'use strict';
 
     /** @const */ var COLORS = {
         SKY:cc.ccc4(188, 231, 241, 255),
-        CAVE:cc.ccc4(0, 0, 0, 255),
-    }
+        CAVE:cc.ccc4(0, 0, 0, 255)
+    };
+
+    /** @const */ var SKULLS_TO_WIN = 6;
 
     var GameScene = cc.Layer.extend({
-        init:function () {
+        init:function (gui) {
+            this.gui = gui;
             this.background = cc.LayerColor.create(COLORS.SKY);
             this.addChild(this.background);
             this.player = new Darwin();
@@ -33,6 +41,16 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
             this.keys[key] = false;
         },
 
+        onEnter:function () {
+            this._super();
+            cc.sharedEngine.playBackgroundMusic('resources/bgm', true);
+        },
+
+        onExit:function () {
+            this._super();
+            cc.sharedEngine.stopBackgroundMusic();
+        },
+
         update:function (dt) {
             if (this.keys[cc.KEY.right]) {
                 this.player.moveRight();
@@ -55,6 +73,7 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
             this.checkEnemiesHit();
             this.checkPlayerHit();
             this.checkItemsCollisions();
+            this.updateGUI();
             this.checkPortals();
         },
 
@@ -214,7 +233,7 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
             if (this.player.attacking) {
                 var self = this;
                 this.enemies.forEach(function (enemy) {
-                    self.player.hitIfPossible(enemy);
+                    self.player.hitIfPossible(enemy, self);
                 });
             }
         },
@@ -231,6 +250,15 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
                     }
                 }
             });
+
+            if (this.player.lives <= 0) {
+                this.gameOver();
+            }
+        },
+
+        gameOver:function () {
+            var IdleScene = require('scenes/IdleScene');
+            cc.Director.sharedDirector().replaceScene(IdleScene.create('Click to restart', 'resources/lose.png'));
         },
 
         checkItemsCollisions:function () {
@@ -240,6 +268,15 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
                     item.collect(self);
                 }
             });
+            if (this.skulls.length === SKULLS_TO_WIN) {
+                var IdleScene = require('scenes/IdleScene');
+                cc.Director.sharedDirector().replaceScene(IdleScene.create('Click to play again', 'resource/win.png'));
+            }
+        },
+
+        updateGUI:function () {
+            this.gui.setLives(this.player.lives);
+            this.gui.setSkulls(this.skulls.length);
         },
 
         checkPortals:function () {
@@ -259,11 +296,18 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
                 });
             } else if (this.player.getPosition().y < 0) {
                 nextMap = this.map.propertyNamed('bottomPortal');
-                this.changeMapAndPlacePlayer(nextMap, function (map, player) {
-                    var mapHeight = map.getMapSize().height * map.getTileSize().height;
-                    player.setPosition(cc.ccp(player.getPosition().x,
-                        mapHeight - 10));
-                });
+                if (nextMap) {
+                    this.changeMapAndPlacePlayer(nextMap, function (map, player) {
+                        var mapHeight = map.getMapSize().height * map.getTileSize().height;
+                        player.setPosition(cc.ccp(player.getPosition().x,
+                            mapHeight - 10));
+                    });
+                } else {
+                    //die
+                    cc.sharedEngine.playEffect('resources/damage');
+                    this.gameOver();
+                }
+
             } else if (this.player.getPosition().y > this.mapHeight()) {
                 nextMap = this.map.propertyNamed('topPortal');
                 this.changeMapAndPlacePlayer(nextMap, function (map, player) {
@@ -292,10 +336,13 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
 
                 this.enemies = [];
                 this.items = [];
+                this.objectsZ = 1;
+                if (this.map.layerNamed('cave_background')) {
+                    this.objectsZ = 2;
+                }
                 var objects = this.map.objectGroupNamed('objects');
                 var self = this;
                 objects.getObjects().forEach(function (objectData) {
-                    console.log(objectData);
                     var object;
                     var EnemyClass = enemies[objectData.type];
                     if (typeof EnemyClass !== 'undefined') {
@@ -308,7 +355,7 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
                         }
                     }
                     if (object) {
-                        self.map.addChild(object, objectData.z);
+                        self.map.addChild(object, self.objectsZ);
                     }
                 });
 
@@ -316,15 +363,15 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
                 this.addChild(this.map);
 
                 placeFn(this.map, this.player);
-                this.map.addChild(this.player, 1);
+                this.map.addChild(this.player, this.objectsZ);
             }
 
         }
     });
 
-    GameScene.create = function () {
+    GameScene.create = function (gui) {
         var node = new GameScene();
-        if (node && node.init()) {
+        if (node && node.init(gui)) {
             return node;
         }
         throw new Error('Unable to initialize scene');
@@ -332,8 +379,10 @@ define(['cocos2d', 'actors/Darwin', 'actors/enemies', 'actors/Skull'], function 
 
     GameScene.scene = function () {
         var scene = cc.Scene.create();
-        var layer = this.create();
+        var gui = GUILayer.create();
+        var layer = this.create(gui);
         scene.addChild(layer);
+        scene.addChild(gui);
         return scene;
     };
 

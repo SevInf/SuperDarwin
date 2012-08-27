@@ -3,22 +3,28 @@
  <properties>
   <property name="rightPortal" value="resources/cave01.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+2SSQ6AIBAE+f+L3J7g9gQX3qAe7SMHMQw0wcSppG4M3RkwRlGUr9FGWjKb0SE1O6UDKzu2g+Y/W8EaNoXyezjAUZgv7eg7s8AVbqS9vOV3glnGXlwmOMMd2oBZ315Yf+SEV8LdzD96ZOojJfRtcuW7MHbyd26D91L3AAwAAA==
+  </data>
+ </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgGAWjYBQgA0EgliQTC1HBbhUK9CtT4AZK7abEDdSym1w3yFPRbhhQHbV/QO0HpQFC+ZWW9pMCRu0f2faLA7EwGpYbUBdhummg3TMY44hSPNAAAM2AB44ADAAA
+   H4sIAAAAAAAAA2NgGAWjYBQgA1kglgNieTJoBSrYrUqBfnUK3ECp3ZS4gVp2k+sGFSraDQN6JKjVpoH9piSoHY7+V2PAn1e5kNTSwv+kAFr4nxQw0v1vBMQmQGwMpXUG1jlg9ww2t+gOAnfA4mgwuYVcmpnursYEAC8jlb0ADAAA
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="24">
-  <object name="skull0" x="65" y="285" width="93" height="86"/>
+  <object name="skull0" x="107" y="314" width="34" height="30"/>
   <object name="grayWall" x="480" y="280" width="80" height="160"/>
+  <object name="Snake 1" type="Snake" x="300" y="400" width="180" height="40"/>
+  <object type="Snake" x="240" y="380" width="60" height="40"/>
+  <object type="Snake" x="200" y="360" width="40" height="40"/>
+  <object type="Snake" x="140" y="340" width="60" height="40"/>
  </objectgroup>
 </map>

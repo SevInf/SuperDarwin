@@ -5,21 +5,26 @@
   <property name="rightPortal" value="resources/cave03.tmx"/>
   <property name="topPortal" value="resources/cave00.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAA+3SS07CUBSA4TKTPYjADkBhDglTQEEWIG8WwEOEkTAQUIaovBbAS2AHAroDEdyM/4QJsZorLR3Qk3xJk9ucv20qScqNR4Aao/d369+ihLLgLqXet4FHPKnQ30giJdPvoY+Biv0CijL9zT3PaKKFNjroKvwcv/WHGOEFY0ww3WP/FTPMscAb3gV2n+MCAQQF+kcGSTLig+slPrHCGl8C/ShiiCMh0D+mbcIJzLDAahD/tjlcI4+brTMX3DJ9Gy07TnEGB5z/6NdwjwfUt84uEZLp/zWi/9OuO3W6n3jhg1+j/hXCiGjUTyODrEb9O1RQVWDXoc83opuBEwAMAAA=
+  </data>
+ </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoA6QJ1G9KpXsHS72CwKxJAVYhUL7SXU/qUAEiNWgWHQA7EcHo/YPb/vR0xu97ScERu2HAOTyCznO0DG2OIQBfPpwmaUMtXcUjIKhBmDpHV+eGAXEAeEBxgMNAC9AWLwADAAA
+   H4sIAAAAAAAAA2NgoA4QJFG9BJXsHS72MwIxFwVYnEL7SXU/qYAFiCWhmHUA7EcHo/YPX/stgdgKiK2B2GYA7CcGjNoPAcjllyQezErAPOTyhRgsBrV3FIwCUoEiECsBsfJAO2QUUAyYBxgPNAAAeEbVegAMAAA=
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="24">
   <object name="redWall" x="520" y="280" width="80" height="160"/>
+  <object name="Spider1" type="Spider" x="200" y="140" width="180" height="120"/>
+  <object name="Spider 2" type="Spider" x="420" y="120" width="80" height="60"/>
+  <object name="Spider 3" type="Spider" x="20" y="300" width="220" height="140"/>
  </objectgroup>
 </map>

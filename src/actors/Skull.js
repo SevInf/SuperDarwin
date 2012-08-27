@@ -6,6 +6,7 @@ define(['cocos2d'], function (cc) {
             this.name = mapObject.name;
             this.initWithFile('resources/' + mapObject.name + '.png');
             this.setPosition(cc.ccp(mapObject.x, mapObject.y));
+            this.collected = false;
             return true;
         },
 
@@ -14,6 +15,11 @@ define(['cocos2d'], function (cc) {
         },
 
         collect: function(gameLayer) {
+            if (this.collected) {
+                return;
+            }
+            cc.sharedEngine.playEffect('resources/pick');
+            this.collected = true;
             gameLayer.skulls.push(this.name);
             var winSize = cc.Director.sharedDirector().getWinSize();
             this.runAction(cc.Sequence.create(
@@ -32,6 +38,6 @@ define(['cocos2d'], function (cc) {
             return node;
         }
         throw new Error('Unable to initialize skull');
-    }
+    };
     return Skull;
 });

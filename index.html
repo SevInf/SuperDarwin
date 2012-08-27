@@ -2,12 +2,24 @@
 <html>
     <head>
         <meta http-equiv='content-type' content='text/html; charset=utf-8'>
-    
-        <title>Cocos2d Game with RequireJS</title>
+        <link href='http://fonts.googleapis.com/css?family=Chango|Press+Start+2P' rel='stylesheet' type='text/css'>
+
+        <title>Super Darwin</title>
         <link rel="stylesheet" href="style.css" type="text/css">
         <script type='text/javascript' data-main='src/main.js' src='lib/require.js'></script>
+		<style type="text/css">
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+			th, td {
+				padding: 0;
+			}
+		</style>
     </head>
     <body>
-        <canvas id='gameCanvas' width='640' height='480'></canvas>
+		<div style="width:720px;margin:0 auto;padding:40px;background:url('background.png') no-repeat;">
+			<canvas id='gameCanvas' width='640' height='480' tabindex="1"></canvas>
+		</div>
     </body>
 </html>

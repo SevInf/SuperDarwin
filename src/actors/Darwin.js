@@ -5,6 +5,7 @@ define(['cocos2d'], function (cc) {
     /** @const */ var ANIMATION_TAG = 1;
     /** @const */ var HIT_DISTANCE = 58;
     /** @const */ var HIT_DISTANCE_SQR = HIT_DISTANCE * HIT_DISTANCE;
+    /** @const */ var MAX_LIVES = 6;
 
     var Darwin = cc.Sprite.extend({
         ctor:function () {
@@ -51,7 +52,7 @@ define(['cocos2d'], function (cc) {
             this.xAccel = 0;
             this.onGround = false;
             this.attacking = false;
-            this.lives = 3;
+            this.lives = MAX_LIVES;
             this.regenerating = false;
             this.setAnchorPoint(cc.ccp(0.5, 0));
             this.playAnimation(this.idleAnimation);
@@ -73,8 +74,7 @@ define(['cocos2d'], function (cc) {
 
         collisionBox:function () {
             var pos = this.getPosition();
-            var size = this.getContentSize();
-            return cc.RectMake(pos.x - 15, pos.y, 30, size.height);
+            return cc.RectMake(pos.x - 11, pos.y, 22, 69);
         },
 
         moveRight:function () {
@@ -128,6 +128,7 @@ define(['cocos2d'], function (cc) {
 
         jump:function () {
             if (this.onGround) {
+                cc.sharedEngine.playEffect('resources/jump');
                 this.velocity.y = 330;
                 this.onGround = false;
                 this.stopAnimation();
@@ -141,6 +142,7 @@ define(['cocos2d'], function (cc) {
             if (this.attacking) {
                 return;
             }
+            cc.sharedEngine.playEffect('resources/hit');
             this.attacking = true;
             this.runAction(cc.Sequence.create(
                 cc.Animate.create(this.attackAnimation),
@@ -150,9 +152,9 @@ define(['cocos2d'], function (cc) {
             ));
         },
 
-        hitIfPossible:function (object) {
+        hitIfPossible:function (object, layer) {
             if (this.isHitPossible(object)) {
-                object.hit();
+                object.hit(layer);
             }
         },
 
@@ -170,7 +172,7 @@ define(['cocos2d'], function (cc) {
         yAligned: function(object) {
             var myCB = this.collisionBox();
             var otherCB = object.collisionBox();
-            var myMin = cc.Rect.CCRectGetMinY(myCB),
+            var myMin = cc.Rect.CCRectGetMinY(myCB) + 35,
                 myMax = cc.Rect.CCRectGetMaxY(myCB),
                 otherMin = cc.Rect.CCRectGetMinY(otherCB),
                 otherMax = cc.Rect.CCRectGetMaxY(otherCB);
@@ -190,6 +192,7 @@ define(['cocos2d'], function (cc) {
         },
 
         hit: function() {
+            cc.sharedEngine.playEffect('resources/damage');
             this.regenerating = true;
             this.lives--;
             this.runAction(cc.Sequence.create(
@@ -198,8 +201,16 @@ define(['cocos2d'], function (cc) {
                     this.regenerating = false;
                 })
             ));
+        },
+
+        heal: function() {
+            if (this.lives < MAX_LIVES) {
+                this.lives++;
+            }
         }
     });
+
+    Darwin.MAX_LIVES = MAX_LIVES;
 
     Darwin.create = function () {
         return new Darwin();

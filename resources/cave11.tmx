@@ -5,19 +5,25 @@
   <property name="leftPortal" value="resources/cave10.tmx"/>
   <property name="topPortal" value="resources/cave12.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
- <layer name="walls" width="32" height="24">
+ <layer name="background" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgQAXyDMQBVSLVkQpG7R+1XwSI1aBYdADsJwaM2j9qPz3tR88T1LJfEg2rEKlPGYteUrAQldxPLqBV/I3aP3zsJ6YeoqX9tASDxX5hKmM5htH2Ayn2AwD8wCmfAAwAAA==
+   H4sIAAAAAAAAC92VOQ7CMBBFJwcCrpAQCiiAhqWBHkEDPftSAC3rDVjvyLdQFBTwEolxEF96RSTHLzPyOETvyRnAmV/3u8z+LPAV/gqzX1d/i9m/BweFv8/sv4Kbwp/0+ft3fx4UJF4XeMz+BmhK/GL2qsz+LuhJ/Db6PwcLiVfM3uCLLrHnBmzBjsLZP0r8n75lCEaatWMwAVMwi/hP4AwuFM7+3cAfh2iNr34bRGu07ZedX9WaIiiBckL+lEOUBhlH/0/m8HvCC3xQw3Pdkt+l5x27BCuwBm3QMdg3eFfXL87EqZ8jJr3ijMl9GOQBvRDS6wAMAAA=
   </data>
  </layer>
- <objectgroup name="objects" width="32" height="24"/>
+ <layer name="walls" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC2NgQAWCDMQBCSLVkQpG7R94+1mAWBKKWQfAfmLAqP2j9o8k+9HzJLXs50LD4kTqE8OilxTMRCX3kwtoFX+j9lPPfkUgVgJi5QGyn5Zg1H4IYKYyFmAYbb+QYj8AyPRJZgAMAAA=
+  </data>
+ </layer>
+ <objectgroup name="objects" width="32" height="24">
+  <object type="Spider" x="203" y="314" width="285" height="102"/>
+  <object type="Spider" x="259" y="271" width="180" height="146"/>
+  <object type="Bat" x="144" y="128" width="42" height="181"/>
+ </objectgroup>
 </map>

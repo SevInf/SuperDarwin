@@ -4,22 +4,26 @@
   <property name="rightPortal" value="resources/cave14.tmx"/>
   <property name="topPortal" value="resources/cave11.tmx"/>
  </properties>
- <tileset firstgid="1" name="tiles_cave_bg" tilewidth="20" tileheight="20">
-  <image source="tiles_cave_bg.png" width="80" height="80"/>
+ <tileset firstgid="1" name="tiles_cave" tilewidth="20" tileheight="20">
+  <image source="tiles_cave.png" width="140" height="180"/>
  </tileset>
- <tileset firstgid="17" name="tiles_cave" tilewidth="20" tileheight="20">
-  <image source="tiles_cave.png" width="120" height="80"/>
+ <tileset firstgid="64" name="cave_background" tilewidth="20" tileheight="20">
+  <image source="cave_background.png" width="400" height="260"/>
  </tileset>
- <tileset firstgid="41" name="cave_beach_bg" tilewidth="20" tileheight="20">
-  <image source="cave_beach_bg.png" width="640" height="200"/>
- </tileset>
+ <layer name="background" width="32" height="24">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+XWP04CQRTH8TkaIAlQiM2CBVCIDWoBFEIjUAAFeADxDGrvvyPw7wiAXkGk9FtIXMfdndmFdUh4yadgyctv8uaxQYjtV1xDmLXL+RFEDeZbyBjMNz3/Es4M5l+hYTDf9Pz/Iz+GA5/5bXTQFX/vqomW7blqh7I49siOOPTcYIBbxbl1dkjVbzn03OEeDxr9qjuU5+X0G/R7Zj/5OvOTy21fHvGE54Bn9GK/Q7d9GWKEcQj59hleuHw/wxyLkPO99iVM69J5ZwR1iDSOvj8nkZLyVe+MTZygiFMkXPLPxe8deMHrlvIvUUMdOeRRkPI/sMQnVphgije8i5//TX7uad3TQx/XKKOCqpS/r/UFG+XDagAMAAA=
+  </data>
+ </layer>
  <layer name="walls" width="32" height="24">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC2NgoC6QJ1KdKpXtHbV/cNsvAsRqUCw6APajg1H7B4/9gkAsSQYWopL9xOrBZ8Zgsh+W10QHyH5S9ZJrvzIDZppQIVEvJfZTC4zaP2o/LQGh8mC4+58QEAdi4QHCAw0AXwfi9AAMAAA=
+   H4sIAAAAAAAAC2NgoC4QJFKdBJXtHbV/cNvPAsSSUMw6APajg1H7B4/9skAsD8RyJNIKVLJfhUg96MCUSvZrk2m/Hg77YXmNlUj7h6r/1RgQaYELisWJ1CsGVQ8C5PqfWoBc/1MLjPqftkARiJWAWBmH/HD3PyEw0P43AmITIDamgGYmEw80AAAGAdBfAAwAAA==
   </data>
  </layer>
  <objectgroup name="objects" width="32" height="24">
-  <object name="skull2" x="46" y="354" width="80" height="80"/>
+  <object name="skull2" x="71" y="390" width="31" height="31"/>
   <object name="redWall" x="320" y="280" width="80" height="160"/>
+  <object type="Snake" x="126" y="391" width="177" height="46"/>
+  <object type="Spider" x="409" y="332" width="220" height="106"/>
  </objectgroup>
 </map>

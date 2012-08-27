@@ -1,4 +1,4 @@
-define(['cocos2d'], function (cc) {
+define(['cocos2d', 'actors/Heart'], function (cc, Heart) {
     'use strict';
     var Enemy = cc.Sprite.extend({
         loadMapObject:function (mapObject) {
@@ -28,7 +28,7 @@ define(['cocos2d'], function (cc) {
             return this.boundingBox();
         },
 
-        hit:function () {
+        hit:function (layer) {
             if (this.dead) {
                 return;
             }
@@ -39,8 +39,20 @@ define(['cocos2d'], function (cc) {
                 cc.Blink.create(1, 3),
                 cc.CallFunc.create(this, function () {
                     this.removeFromParentAndCleanup(true);
+                    this.produceHeart(layer);
                 })
             ));
+        },
+
+        produceHeart:function (layer) {
+            var rnd = Math.floor(Math.random() * 10);
+            if (rnd === 1) {
+                var heart = Heart.create();
+                heart.setPosition(this.getPosition());
+                layer.map.addChild(heart, layer.objectsZ);
+                layer.items.push(heart);
+            }
+
         }
 
     });

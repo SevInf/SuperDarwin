@@ -31,10 +31,10 @@ define(['cocos2d', 'actors/Enemy'], function (cc, Enemy) {
 
         beginMoving:function (mapObject) {
             var duration = mapObject.width / SPEED;
-            var jumps = Math.floor(mapObject.width / JUMP_LENGTH);
+            var jumps = Math.ceil(mapObject.width / JUMP_LENGTH);
             var jumpAction = cc.JumpBy.create(duration,
                                               cc.ccp(-mapObject.width, 0),
-                                              mapObject.y + mapObject.height,
+                                              mapObject.height,
                                               jumps);
 
             var run = cc.Sequence.create(
