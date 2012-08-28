@@ -270,7 +270,7 @@ define(['cocos2d',
             });
             if (this.skulls.length === SKULLS_TO_WIN) {
                 var IdleScene = require('scenes/IdleScene');
-                cc.Director.sharedDirector().replaceScene(IdleScene.create('Click to play again', 'resource/win.png'));
+                cc.Director.sharedDirector().replaceScene(IdleScene.create('Click to play again', 'resources/win.png'));
             }
         },
 
