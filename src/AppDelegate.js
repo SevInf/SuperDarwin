@@ -18,7 +18,6 @@ require(['cocos2d', 'scenes/IdleScene'], function(cc, IdleScene) {
             cc.SpriteFrameCache.sharedSpriteFrameCache().addSpriteFramesWithFile('resources/spider.plist');
 
             var director = cc.Director.sharedDirector();
-            director.setDisplayFPS(true);
             director.setAnimationInterval(1.0 / 60);
 
             var scene = IdleScene.create('Click to start', 'resources/title.png');
